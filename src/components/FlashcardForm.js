@@ -16,11 +16,11 @@ const FlashcardForm = ({ editCard, onUpdate }) => {
         if (editCard) {
             setQuestion(editCard.question);
             setAnswer(editCard.answer);
-            setDate(new Date(editCard.createdAt)); // Set date from editCard
+            setDate(new Date(editCard.createdAt));
         } else {
             setQuestion('');
             setAnswer('');
-            setDate(new Date()); // Default to today
+            setDate(new Date());
         }
     }, [editCard]);
 
@@ -30,29 +30,24 @@ const FlashcardForm = ({ editCard, onUpdate }) => {
         try {
             let response;
 
-            // Get the ISO string for the selected date (createdAt)
-            const formattedCreatedAt = date.toISOString(); // The date picked by the user
-            const formattedUpdatedAt = new Date().toISOString(); // Current time for updatedAt
+            const formattedCreatedAt = date.toISOString();
+            const formattedUpdatedAt = new Date().toISOString();
             
-            console.log('Formatted Created At:', formattedCreatedAt); // Debug log
-
             if (editCard) {
-                // Update the existing flashcard
                 const updatedCard = { 
                     ...editCard, 
                     question, 
                     answer, 
-                    createdAt: formattedCreatedAt, // Use the selected date for createdAt
-                    updatedAt: formattedUpdatedAt // Set updatedAt to current time
+                    createdAt: formattedCreatedAt,
+                    updatedAt: formattedUpdatedAt
                 };
                 response = await updateFlashcard(updatedCard, token);
             } else {
-                // Create a new flashcard
                 const newFlashcard = { 
                     question, 
                     answer, 
-                    createdAt: formattedCreatedAt, // Use the selected date for createdAt
-                    updatedAt: formattedUpdatedAt // Set updatedAt to current time
+                    createdAt: formattedCreatedAt,
+                    updatedAt: formattedUpdatedAt
                 };
                 response = await createFlashcard(newFlashcard, token);
             }
@@ -62,7 +57,7 @@ const FlashcardForm = ({ editCard, onUpdate }) => {
                 onUpdate(response);
                 setQuestion('');
                 setAnswer('');
-                setDate(new Date()); // Reset date to today
+                setDate(new Date());
             } else {
                 throw new Error('Unexpected response format');
             }
@@ -79,22 +74,22 @@ const FlashcardForm = ({ editCard, onUpdate }) => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Question</label>
-                    <input 
-                        type="text" 
+                    <textarea 
                         className="form-control" 
                         value={question} 
                         onChange={(e) => setQuestion(e.target.value)} 
                         required 
+                        rows="4" // Set the number of rows for the textarea
                     />
                 </div>
                 <div className="form-group">
                     <label>Answer</label>
-                    <input 
-                        type="text" 
+                    <textarea 
                         className="form-control" 
                         value={answer} 
                         onChange={(e) => setAnswer(e.target.value)} 
                         required 
+                        rows="4" // Set the number of rows for the textarea
                     />
                 </div>
                 <div className="form-group">
@@ -102,7 +97,7 @@ const FlashcardForm = ({ editCard, onUpdate }) => {
                     <DatePicker
                         selected={date}
                         onChange={(date) => setDate(date)}
-                        minDate={new Date()} // Disable past dates
+                        minDate={new Date()}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
