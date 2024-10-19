@@ -1,0 +1,43 @@
+.flashcard {
+    background-color: #f8f9fa; /* Light background */
+    border: 1px solid #e9ecef; /* Light border */
+    border-radius: 0.5rem; /* Rounded corners */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+    position: relative;
+    overflow: hidden;
+}
+
+.flashcard:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.flashcard .card-title {
+    font-weight: bold;
+}
+
+.flashcard .button-group {
+    margin-top: 1rem;
+}
+
+.button-group .btn {
+    margin-right: 0.5rem; /* Space between buttons */
+}
+
+.card-body {
+    padding: 1.5rem; /* Extra padding for card content */
+}
+
+/* Star effect */
+.flashcard::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background: url('https://image-url-to-your-star-icon.png') no-repeat center center; /* Replace with your star icon URL */
+    background-size: contain;
+    opacity: 0.2; /* Light opacity */
+    z-index: 1;
+}
